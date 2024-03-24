@@ -1,4 +1,3 @@
-import Nav from "@/layout/Nav"
 import { Form } from "@remix-run/react"
 import { User } from "remix-auth-spotify"
 
@@ -7,7 +6,7 @@ import { Button } from "@/components/ui/button"
 
 export default function UserInfo({ user }: { user: User }) {
   return (
-    <div className="flex flex-col items-center gap-2">
+    <>
       <Avatar className="size-28">
         <AvatarImage src={user.image ?? undefined} />
         <AvatarFallback>{user.name?.[0]}</AvatarFallback>
@@ -25,7 +24,6 @@ export default function UserInfo({ user }: { user: User }) {
           Sign out
         </Button>
       </Form>
-      <Nav />
-    </div>
+    </>
   )
 }
