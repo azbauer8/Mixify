@@ -1,10 +1,12 @@
+import "./styles.css"
+
 import {
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-} from "@remix-run/react";
+} from "@remix-run/react"
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -15,15 +17,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="dark flex min-h-screen flex-col bg-background font-sans antialiased">
         {children}
         <ScrollRestoration />
         <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
 export default function App() {
-  return <Outlet />;
+  return <Outlet />
 }
