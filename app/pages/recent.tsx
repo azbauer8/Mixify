@@ -18,7 +18,6 @@ export const meta: MetaFunction = () => {
 }
 export async function loader({ request }: LoaderFunctionArgs) {
   const data = await authClient.getSession(request)
-  console.log("fetching data")
   if (data && data.user) {
     const spotify = spotifyClient(data.accessToken)
     const {
