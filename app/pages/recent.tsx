@@ -1,12 +1,21 @@
 import PageLayout from "@/layout/PageLayout"
 import { authClient } from "@/utils/auth.server"
 import spotifyClient from "@/utils/spotify"
-import type { LoaderFunctionArgs } from "@remix-run/node"
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { json, useLoaderData } from "@remix-run/react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Recent | Spoofy" },
+    {
+      name: "description",
+      content: "A dashboard for viewing your Spotify statistics.",
+    },
+  ]
+}
 export async function loader({ request }: LoaderFunctionArgs) {
   const data = await authClient.getSession(request)
   console.log("fetching data")

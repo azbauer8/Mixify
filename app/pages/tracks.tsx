@@ -1,7 +1,7 @@
 import PageLayout from "@/layout/PageLayout"
 import { authClient } from "@/utils/auth.server"
 import spotifyClient from "@/utils/spotify"
-import type { LoaderFunctionArgs } from "@remix-run/node"
+import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { json, useLoaderData, useSearchParams } from "@remix-run/react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -14,6 +14,15 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Tracks | Spoofy" },
+    {
+      name: "description",
+      content: "A dashboard for viewing your Spotify statistics.",
+    },
+  ]
+}
 export async function loader({ request }: LoaderFunctionArgs) {
   const url = new URL(request.url)
   const range = (url.searchParams.get("range") ?? "long_term") as
