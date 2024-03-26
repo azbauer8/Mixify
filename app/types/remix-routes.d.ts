@@ -61,7 +61,7 @@ declare module "remix-routes" {
       params: {
       
       },
-      query: ExportedQuery<import('../layout/Welcome').SearchParams>,
+      query: ExportedQuery<import('../pages/welcome').SearchParams>,
     };
   
   }
@@ -75,7 +75,6 @@ declare module "remix-routes" {
 
   export type RouteId =
     | 'layout/RootLayout'
-    | 'layout/Welcome'
     | 'pages/artists'
     | 'pages/auth/callback'
     | 'pages/auth/login'
@@ -83,6 +82,7 @@ declare module "remix-routes" {
     | 'pages/home'
     | 'pages/recent'
     | 'pages/tracks'
+    | 'pages/welcome'
     | 'root';
 
   export function $path<

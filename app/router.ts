@@ -9,6 +9,7 @@ export default function router(
   ) => RouteManifest
 ) {
   return defineRoutes((route) => {
+    route("/welcome", "pages/welcome.tsx"),
     route("/", "layout/RootLayout.tsx", () => {
       route("", "pages/home.tsx", { index: true }),
         route("artists", "pages/artists.tsx"),
