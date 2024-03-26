@@ -2,8 +2,6 @@ import { authenticator } from "@/utils/auth.server"
 import type { ActionFunctionArgs } from "@remix-run/node"
 import { redirect } from "@remix-run/node"
 
-export const config = { runtime: "edge" }
-
 export function loader() {
   return redirect("/login")
 }

@@ -57,13 +57,6 @@ declare module "remix-routes" {
       query: ExportedQuery<import('../pages/tracks').SearchParams>,
     };
   
-    "/welcome": {
-      params: {
-      
-      },
-      query: ExportedQuery<import('../pages/welcome').SearchParams>,
-    };
-  
   }
 
   type RoutesWithParams = Pick<
@@ -82,7 +75,6 @@ declare module "remix-routes" {
     | 'pages/home'
     | 'pages/recent'
     | 'pages/tracks'
-    | 'pages/welcome'
     | 'root';
 
   export function $path<
