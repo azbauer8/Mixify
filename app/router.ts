@@ -9,12 +9,14 @@ export default function router(
   ) => RouteManifest
 ) {
   return defineRoutes((route) => {
-    route("/", "pages/home.tsx", { index: true }),
-      route("/artists", "pages/artists.tsx", { index: true }),
-      route("/tracks", "pages/tracks.tsx", { index: true }),
-      route("/recent", "pages/recent.tsx", { index: true }),
-      route("/logout", "pages/auth/logout.tsx", { index: true }),
-      route("/login", "pages/auth/login.tsx", { index: true }),
-      route("/callback", "pages/auth/callback.tsx", { index: true })
+    route("/", "layout/RootLayout.tsx", () => {
+      route("", "pages/home.tsx", { index: true }),
+        route("artists", "pages/artists.tsx"),
+        route("tracks", "pages/tracks.tsx"),
+        route("recent", "pages/recent.tsx"),
+        route("logout", "pages/auth/logout.tsx"),
+        route("login", "pages/auth/login.tsx"),
+        route("callback", "pages/auth/callback.tsx")
+    })
   })
 }

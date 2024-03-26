@@ -1,3 +1,4 @@
+import { authClient } from "@/utils/auth.server"
 import SpotifyWebApi from "spotify-web-api-node"
 
 const spotifyApi = new SpotifyWebApi({
@@ -9,8 +10,9 @@ const spotifyApi = new SpotifyWebApi({
       : process.env.SPOTIFY_CALLBACK_URL_PROD,
 })
 
-const spotifyClient = (accessToken: string) => {
-  spotifyApi.setAccessToken(accessToken)
+const spotifyClient = async (request: Request) => {
+  const data = await authClient.getSession(request)
+  spotifyApi.setAccessToken(data?.accessToken ?? "")
   return spotifyApi
 }
 

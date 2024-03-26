@@ -2,6 +2,8 @@ import { destroySession, getSession } from "@/utils/session.server"
 import type { ActionFunctionArgs } from "@remix-run/node"
 import { json, redirect } from "@remix-run/node"
 
+export const config = { runtime: "edge" }
+
 export async function action({ request }: ActionFunctionArgs) {
   return redirect("/", {
     headers: {

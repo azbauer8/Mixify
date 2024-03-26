@@ -1,8 +1,7 @@
-import PageLayout from "@/layout/PageLayout"
-import { authClient } from "@/utils/auth.server"
 import spotifyClient from "@/utils/spotify"
-import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
-import { json, Link, useLoaderData } from "@remix-run/react"
+import type { MetaFunction } from "@remix-run/node"
+import { Link, useLoaderData } from "@remix-run/react"
+import { json, type LoaderFunctionArgs } from "@vercel/remix"
 import { $path } from "remix-routes"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -26,47 +25,38 @@ export const meta: MetaFunction = () => {
 }
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const data = await authClient.getSession(request)
-  if (data && data.user) {
-    const spotify = spotifyClient(data.accessToken)
-    const {
-      body: { items: topArtists },
-    } = await spotify.getMyTopArtists({
-      limit: 20,
-    })
-    const {
-      body: { items: topTracks },
-    } = await spotify.getMyTopTracks({
-      limit: 20,
-    })
-    return json(
-      {
-        user: data.user,
-        topArtists,
-        topTracks,
+  const spotify = await spotifyClient(request)
+  const {
+    body: { items: topArtists },
+  } = await spotify.getMyTopArtists({
+    limit: 20,
+  })
+  const {
+    body: { items: topTracks },
+  } = await spotify.getMyTopTracks({
+    limit: 20,
+  })
+  return json(
+    {
+      topArtists,
+      topTracks,
+    },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=3600",
       },
-      {
-        headers: {
-          "Cache-Control": "public, max-age=3600",
-        },
-      }
-    )
-  }
-  return null
+    }
+  )
 }
 
 export default function Home() {
-  const data = useLoaderData<typeof loader>()
-
-  if (!data) return <PageLayout />
+  const { topArtists, topTracks } = useLoaderData<typeof loader>()
 
   return (
-    <PageLayout user={data.user}>
-      <div className="flex w-full flex-col items-center gap-4 md:flex-row">
-        <TopList list={{ type: "Artists", items: data.topArtists }} />
-        <TopList list={{ type: "Tracks", items: data.topTracks }} />
-      </div>
-    </PageLayout>
+    <div className="flex w-full flex-col items-center gap-4 md:flex-row">
+      <TopList list={{ type: "Artists", items: topArtists }} />
+      <TopList list={{ type: "Tracks", items: topTracks }} />
+    </div>
   )
 }
 

@@ -57,6 +57,13 @@ declare module "remix-routes" {
       query: ExportedQuery<import('../pages/tracks').SearchParams>,
     };
   
+    "/welcome": {
+      params: {
+      
+      },
+      query: ExportedQuery<import('../layout/Welcome').SearchParams>,
+    };
+  
   }
 
   type RoutesWithParams = Pick<
@@ -67,6 +74,8 @@ declare module "remix-routes" {
   >;
 
   export type RouteId =
+    | 'layout/RootLayout'
+    | 'layout/Welcome'
     | 'pages/artists'
     | 'pages/auth/callback'
     | 'pages/auth/login'
